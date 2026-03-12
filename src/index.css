@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .glass-card {
+        background: rgba(52, 24, 41, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(244, 37, 157, 0.2);
+    }
+    .neon-glow {
+        box-shadow: 0 0 15px rgba(244, 37, 157, 0.4);
+    }
+}
