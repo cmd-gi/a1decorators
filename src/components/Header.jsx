@@ -9,7 +9,7 @@ const Header = () => {
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Contact", href: "#contact" },
-    { name: "Shop", href: "shop.html" },
+    { name: "Shop", href: "#about" },
   ];
 
   return (
@@ -19,12 +19,12 @@ const Header = () => {
           <div className="text-2xl font-serif font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-purple uppercase">
             A1 DECORATORS
           </div>
-          
+
           <div className="hidden md:flex items-center space-x-10 text-[11px] font-bold uppercase tracking-[0.2em] text-white">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href} 
+              <a
+                key={link.name}
+                href={link.href}
                 className="hover:text-primary transition-colors"
               >
                 {link.name}
@@ -32,7 +32,7 @@ const Header = () => {
             ))}
           </div>
 
-          <button 
+          <button
             className="md:hidden text-white flex items-center justify-center p-2"
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -68,9 +68,9 @@ const Header = () => {
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </motion.a>
               ))}
-              
+
               <div className="mt-4 w-full px-8">
-                <button 
+                <button
                   className="w-full flex items-center justify-center gap-3 bg-primary text-white py-4 rounded-xl font-bold text-xs tracking-[0.2em] uppercase neon-glow"
                   onClick={() => window.open('https://wa.me/919535370484', '_blank')}
                 >
