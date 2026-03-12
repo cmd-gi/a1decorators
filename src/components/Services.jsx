@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const services = [
   {
@@ -24,34 +25,71 @@ const services = [
 ];
 
 const Services = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
-    <section className="py-24 px-6 md:px-20 bg-background-light dark:bg-background-dark/50" id="services">
+    <section className="py-16 md:py-24 px-6 md:px-20 bg-background-light dark:bg-background-dark/50 overflow-hidden" id="services">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <motion.div 
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="max-w-xl">
-            <h2 className="text-primary font-bold tracking-widest uppercase text-sm mb-4">Our Expertise</h2>
-            <h3 className="text-3xl md:text-4xl font-extrabold text-white">Curating Specialized Events</h3>
+            <h2 className="text-primary font-bold tracking-widest uppercase text-[10px] md:text-sm mb-3 md:mb-4">Our Expertise</h2>
+            <h3 className="text-3xl md:text-5xl font-extrabold text-white leading-tight">Curating Specialized <br className="hidden md:block" />Events</h3>
           </div>
-          <a className="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all group" href="#">
+          <a className="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all group text-sm md:text-base" href="#portfolio">
             View All Services <span className="material-symbols-outlined">arrow_right_alt</span>
           </a>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        </motion.div>
+        
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {services.map((service, index) => (
-            <div key={index} className="group relative overflow-hidden rounded-3xl aspect-[4/5] bg-neutral-dark border border-primary/10">
+            <motion.div 
+              key={index} 
+              variants={cardVariants}
+              className="group relative overflow-hidden rounded-3xl aspect-[4/5] bg-neutral-dark border border-primary/10"
+              whileHover={{ y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
               <img
                 className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-500"
                 alt={service.title}
                 src={service.image}
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6">
-                <h4 className="text-xl font-bold text-white mb-2">{service.title}</h4>
-                <p className="text-slate-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity">{service.description}</p>
+                <h4 className="text-lg md:text-xl font-bold text-white mb-2">{service.title}</h4>
+                <p className="text-slate-300 text-xs md:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">{service.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

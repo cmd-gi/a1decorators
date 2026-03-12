@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const portfolioImages = [
   [
@@ -20,27 +21,64 @@ const portfolioImages = [
 ];
 
 const Portfolio = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
-    <section className="py-24 px-6 md:px-20" id="portfolio">
+    <section className="py-24 px-6 md:px-20 overflow-hidden" id="portfolio">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-16 gap-4">
+        <motion.div 
+          className="flex flex-col items-center text-center mb-16 gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-primary font-bold tracking-widest uppercase text-sm">Visual Portfolio</h2>
           <h3 className="text-3xl md:text-4xl font-extrabold dark:text-white">Glimpse of Perfection</h3>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        </motion.div>
+        
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {portfolioImages.map((column, colIndex) => (
-            <div key={colIndex} className={`space-y-4 ${colIndex % 2 !== 0 ? 'pt-8' : ''}`}>
+            <div key={colIndex} className={`space-y-4 ${colIndex % 2 !== 0 ? 'md:pt-12' : ''}`}>
               {column.map((image, imgIndex) => (
-                <img
-                  key={imgIndex}
-                  className={`rounded-2xl w-full ${image.height} object-cover`}
-                  alt={image.alt}
-                  src={image.src}
-                />
+                <motion.div 
+                  key={imgIndex} 
+                  variants={imageVariants}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img
+                    className={`rounded-2xl w-full ${image.height} object-cover shadow-lg hover:shadow-primary/20 transition-all`}
+                    alt={image.alt}
+                    src={image.src}
+                    loading="lazy"
+                  />
+                </motion.div>
               ))}
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
